@@ -1,0 +1,6 @@
+services:
+  sqlplus-query-metrics-parr-tools:
+    build:
+      context: .
+    image: noaa/sqlplus-query-metrics-parr-tools:latest
+    container_name: sqlplus-query-metrics-parr-tools

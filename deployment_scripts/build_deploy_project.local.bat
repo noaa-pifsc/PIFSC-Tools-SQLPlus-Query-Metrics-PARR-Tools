@@ -1,0 +1,1 @@
+cmd /c ""C:\Program Files\Git\bin\bash.exe" --login -i -- C:\docker\sqlplus-query-metrics-parr-tools-local\deployment_scripts\build_deploy_project.local.sh"

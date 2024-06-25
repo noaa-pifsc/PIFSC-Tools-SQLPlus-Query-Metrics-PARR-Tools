@@ -1,0 +1,10 @@
+services:
+  sqlplus-query-metrics-parr-tools:
+    volumes:
+      - "sqlplus-query-metrics-parr-tools-data:/usr/src/data_exports"
+      - "sqlplus-query-metrics-parr-tools-logs:/usr/src/logs"
+    environment:
+      TZ: "Pacific/Honolulu"
+volumes:
+  sqlplus-query-metrics-parr-tools-data:
+  sqlplus-query-metrics-parr-tools-logs:
