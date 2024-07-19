@@ -89,7 +89,7 @@ SET TERMOUT ON;
 
 --log that the explain plan query is being executed
 SPOOL ../logs/&V_LOG_FILE_NAME append;
-PROMPT &V_CURRENT_DATE_TIME. - retrieve the explain plan from the query 
+PROMPT &V_CURRENT_DATE_TIME. - retrieve the explain plan from the query
 SPOOL OFF;
 
 SET TERMOUT OFF;
@@ -105,7 +105,7 @@ START ./temp_explain_query.sql
 
 --retrieve the current timestamp
 COLUMN QUERY_COST new_value V_QUERY_COST
-SELECT TRIM(COST) AS QUERY_COST FROM 
+SELECT TRIM(COST) AS QUERY_COST FROM
 (SELECT cost from plan_table ORDER BY ID ASC) WHERE ROWNUM = 1;
 
 --export the result set in .csv format:
@@ -146,7 +146,7 @@ SELECT to_char(CURRENT_TIMESTAMP, 'YYYYMMDD HH:MI:SS.FF3 AM') AS END_TIMESTAMP, 
 
 --calculate the total time between when the query was sent and the response was received
 COLUMN ELAPSED_TIME_SEC new_value V_ELAPSED_TIME_SEC
-select TRIM(extract(second from diff)) AS ELAPSED_TIME_SEC FROM (SELECT to_timestamp('&&V_END_TIMESTAMP', 'YYYYMMDD HH:MI:SS.FF3 AM') - to_timestamp('&&V_START_TIMESTAMP', 'YYYYMMDD HH:MI:SS.FF3 AM') diff from dual);
+select TO_NUMBER(extract(minute from diff)) * 60 + TO_NUMBER(TRIM(extract(second from diff))) AS ELAPSED_TIME_SEC FROM (SELECT to_timestamp('&&V_END_TIMESTAMP', 'YYYYMMDD HH:MI:SS.FF3 AM') - to_timestamp('&&V_START_TIMESTAMP', 'YYYYMMDD HH:MI:SS.FF3 AM') diff from dual);
 
 SET TERMOUT ON;
 
@@ -159,7 +159,7 @@ SPOOL OFF;
 
 
 --add an entry in the .csv file with associated metrics for the query that was just executed
-SPOOL ../data_exports/parr-tools-query-metrics.csv append;
+SPOOL ../data_exports/&V_CSV_OUTPUT_FILE_NAME. append;
 PROMPT "&V_DB_NAME.","&V_DB_LOCATION_NAME","&V_APP_LOCATION_NAME","&1.","&V_START_DATE_TIME.","&V_QUERY_COST.","&V_NUM_ROWS.","&2.","&V_ELAPSED_TIME_SEC.","[FILE_SIZE]";
 SPOOL OFF;
 
